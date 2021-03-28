@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" />
+    <title>Compare</title>
+    <style>
+        body {
+    background-color: #ECEFF1;
+
+}
+form {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    text-align: center;
+    margin: 100px auto;
+    max-width: 1000px;
+    max-height: 400px;
+}
+.choice {
+    padding: 5%;
+    color: #37474f;
+    background-color: #ffffff;
+}
+.empty {
+    background-color: #fff;
+}
+.title {
+    text-align: left;
+    font-size: 18px;
+    font-family: 'Montserrat-Medium', sans-serif;
+}
+.list {
+    border-radius: 6px;
+    padding: 8px 11px 8px 11px;
+    border: 2px solid #eceff1;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'><path d='M7 11L12 15L17 11' stroke='%2337474f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-color: #eceff1;
+    width: -webkit-fill-available;
+    -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+.input {
+    font-size: 14px;
+    border-radius: 6px;
+    padding: 8px;
+    background-color: #eceff1;
+    border: 2px solid #eceff1;
+    color: #37474f;
+    width: -webkit-fill-available;
+}
+.our, .staff {
+    display: grid;
+    align-items: center;
+    height: 100%;
+    line-height: normal;
+    color: #ffffff;
+    background-color: #44414f;
+}
+.stonks {
+    color: #FFF999;
+    background-color: #44414f;
+    grid-column: 1/4;
+}
+.size29 {
+    font-size: 29px;
+}
+.size36 {
+    font-size: 36px;
+}
+    </style>
+</head>
+<body>
+    <form name="form">
+        <div class="our">
+            <div>
+                <p>Наш персонал<br><span id="our" class="size36">0 руб.</span></p>
+            </div>
+        </div>
+        <div class="choice">
+            <p class="title">Выберите специалиста:</p>
+            <select class="list" name="list" onchange="compare()">
+                <option>Выберите пункт...</option>
+                <option>Грузчик</option>
+            </select>
+        </div>
+        <div class="staff">
+            <div>
+                <p>Штатный персонал<br><span id="staff" class="size36">0 руб.</span></p> 
+            </div>
+        </div>
+        <div class="empty"></div>
+        <div class="choice">
+            <p class="title">Выберите количество специалистов:</p>
+            <input class="input" id="input" type="number" placeholder="Введите число" required min="0" onchange="compare()" onkeyup="compare()" disabled>
+        </div>
+        <div class="empty"></div>
+        <div class="stonks">
+            <p><span class="size29">Мы сэкономим вам!</span><br><span id="stonks" class="size36">0 руб/час</span></p>
+        </div>
+    </form>
+    <script>
+    function compare() {
+        var our
+        var staff
+        answer = document.form.input.value
+        if (answer >= 0) {
+        if (document.form.list.value == 'Грузчик') {
+           our = 180
+           staff = 216
+           document.getElementById('input').disabled = false
+            }
+            if (document.form.list.value == 'Выберите пункт...') {
+                our = 0
+                staff = 0
+                document.getElementById('input').disabled = true
+                document.form.input.value = null
+            }
+            ourValue = our * answer
+            staffValue = staff * answer
+            stonks = staffValue - ourValue
+            document.getElementById('our').innerHTML = ourValue + ' руб.'
+            document.getElementById('staff').innerHTML = staffValue + ' руб.'
+            document.getElementById('stonks').innerHTML = stonks + ' руб/час'
+        }
+    }
+    </script>
+</body>
+</html>
